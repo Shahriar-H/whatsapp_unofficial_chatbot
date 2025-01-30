@@ -22,6 +22,12 @@ const Importxldata = () => {
   const [fetcingnumber, setfetcingnumber] = useState(false);
   const [grouploading, setgrouploading] = useState(false);
 
+  if(instancedata?.subscriptionexpired===false){
+    return <div className="text-center">
+      <p>Your Subscription has Expired</p>
+    </div>
+  }
+
   useEffect(() => {
     get_number({groupname:selectedGroup})
     setfetcingnumber(true)

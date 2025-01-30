@@ -150,7 +150,7 @@ export default function Home() {
         headers:{
           "Content-Type":"application/json"
         },
-        body: JSON.stringify({phoneNumber:singlesender,message:message, clientId:"661122334455"})
+        body: JSON.stringify({phoneNumber:singlesender,message:message, mediaUrl:selectedImage?imageLink+selectedImage:null})
       })
       .then((res)=>res.json())
       .then((result)=>{
@@ -168,7 +168,7 @@ export default function Home() {
         headers:{
           "Content-Type":"application/json"
         },
-        body: JSON.stringify({phoneNumber:numberis,message:message, clientId:"661122334455"})
+        body: JSON.stringify({phoneNumber:numberis,message:message, mediaUrl:selectedImage?imageLink+selectedImage:null})
       })
       const result = await response.json()
      
@@ -209,6 +209,13 @@ export default function Home() {
   const selectImageFun = (img) => {
     setselectedImage(img);
   };
+
+
+  if(instancedata?.subscriptionexpired===false){
+    return <div className="text-center">
+      <p>Your Subscription has Expired</p>
+    </div>
+  }
   return (
     <div className="bg-white dark:bg-gray-700 p-8 rounded-lg shadow-lg">
      

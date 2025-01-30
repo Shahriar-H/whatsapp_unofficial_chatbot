@@ -4,7 +4,7 @@ import PhoneInfoCard from '../Components/Phoneinfo';
 import { apilink, apitoken, useStore } from '../../lib';
 import Qrcodeinfo from '../Components/Qrcodeinfo';
 import { useGetinstance } from '../hooks/useGetinstance';
-
+import dayjs from 'dayjs';
 
 import SocketIOClient, { io } from "socket.io-client";
 import toast from 'react-hot-toast';
@@ -12,7 +12,7 @@ import { faPowerOff, faRefresh } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import useGetData from '../hooks/useGetdata';
 
-const socket = io(apilink, {
+const socket = io("ws://103.112.62.216:3028", {
   transports: ['websocket', 'polling'],
 });
 socket.connect()
@@ -102,7 +102,7 @@ export default function Dashboard() {
           headers:{
               "Content-Type":'application/json'
           },
-          body:JSON.stringify({number:"01771973925"})
+          body:JSON.stringify({number:instancedata?.login_info?.phoneNumber})
       })
       .then((res)=>res.json())
       .then((result)=>{
@@ -213,18 +213,53 @@ export default function Dashboard() {
     getQr()
     
   }, [instancedata?.info]);
+
+
+  const Card = ({ startDate, endDate }) => {
+    const getRemainingDays = (end) => {
+      const today = dayjs();
+      const endDay = dayjs(end);
+      const diff = endDay.diff(today, "day");
+      return diff >= 0 ? diff : 0; // Return 0 if the date has passed
+    };
+  
+    const formatDate = (date) => dayjs(date).format("DD MMM YYYY");
+  
+    const remainingDays = getRemainingDays(endDate);
+  
+    return (
+      <div className=" w-full bg-white dark:bg-gray-900 shadow-lg rounded-md overflow-hidden border border-gray-500">
+        <div className="px-6 py-4 w-full flex justify-between items-center">
+          <h2 className="text-xl font-bold text-gray-400">Subscription Details</h2>
+          <p className="text-gray-400">
+            <span className="font-semibold text-gray-400">Start Date:</span> {formatDate(startDate)}
+          </p>
+          <p className="text-gray-400">
+            <span className="font-semibold  text-gray-400">End Date:</span> {formatDate(endDate)}
+          </p>
+          <p className={`text-lg font-semibold ${remainingDays === 0 ? "text-red-500" : "text-green-500"}`}>
+            {remainingDays === 0 ? "Expired" : `${remainingDays} day(s) remaining`}
+          </p>
+        </div>
+      </div>
+    );
+  };
+
   
 
 
     return (
         <div className="min-h-screen bg-gray-100 dark:bg-gray-700 p-8">
-          <div className="grid hidden grid-cols-2 gap-4">
-            <DashboardCard title="Employees" value={employees?.length} extraInfo="Toal number of employees" />
+          <div className="grid grid-cols-2 gap-4">
+            {/* <DashboardCard title="Employees" value={employees?.length} extraInfo="Toal number of employees" />
             <DashboardCard title="Customers" value={customers?.length} extraInfo={"Total Customers"} />
             <DashboardCard title="Positive" value={customerspositive?.length} extraInfo={" Total Positive Customers"} />
-            <DashboardCard title="Meetings" value={meetings?.length} extraInfo={"Total Pending meetings"} />
+            <DashboardCard title="Meetings" value={meetings?.length} extraInfo={"Total Pending meetings"} /> */}
             
           </div>
+          <h1 className='text-center'>{instancedata?.login_info?.name}</h1>
+          <hr></hr> <br />
+          <Card startDate={instancedata?.login_info?.start} endDate={instancedata?.login_info?.end} />
           <br />
           <hr/>
           <br />
@@ -242,7 +277,7 @@ export default function Dashboard() {
           </div>
             
           {<div className="mt-8">
-            <Qrcodeinfo loading={isLoading} getQr={getQr} qrurl={qrurl} instatceID={instatceID}/>
+           { !isLoading&&<Qrcodeinfo loading={isLoading} getQr={getQr} qrurl={qrurl} instatceID={instatceID}/>}
             
           </div>}
          

@@ -9,7 +9,7 @@ export default function Addimage({selectImageFun}) {
     const [file, setfile] = useState(null);
     const [isUploading, setisUploading] = useState(false);
     const [allimages, setallimages] = useState();
-    const [selectedImage, setselectedImage] = useState(null);
+    const [selectedImage, setselectedImage] = useState('');
     useEffect(() => {
         selectImageFun(selectedImage)
     }, [selectedImage]);
@@ -102,13 +102,13 @@ export default function Addimage({selectImageFun}) {
             {!allimages&&<p className='text-xs'>Loading...</p>}
             {
             allimages&&allimages.map(({image},index)=>{
-                return image.split('.')[1]!='mp4'?<img key={index} onClick={()=>setselectedImage(image)} src={imageLink+image} className={`h-12 w-12 m-1 rounded border ${image===selectedImage&&"border-2 border-green-500"}`} />:
+                return image.split('.')[1]!='mp4'?<img key={index} onClick={()=>setselectedImage(image)} src={imageLink+image} className={`h-12 w-12 m-1 rounded border ${image===selectedImage&&"border-2 border-red-700"}`} />:
                 <div onClick={()=>setselectedImage(image)} className={`h-12 flex justify-center items-center w-12 m-1 text-4xl rounded border ${image===selectedImage&&"border-2 border-green-500"}`}><FontAwesomeIcon icon={faVideo} /></div>
             })
             }
             
         </div>
-      <button onClick={()=>selectImageFun(null)} className='p-1 bg-red-300 mt-3 text-xs text-red-500'>Un Select</button> 
+      <button onClick={()=>setselectedImage('')} className='p-1 bg-red-300 mt-3 text-xs text-red-500'>Un Select</button> 
     </div>
   )
 }

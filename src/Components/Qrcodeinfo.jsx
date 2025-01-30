@@ -10,7 +10,7 @@ import { apilink, apitoken, useStore } from '../../lib';
 import { io } from "socket.io-client";
 import { info } from 'autoprefixer';
 import toast from 'react-hot-toast';
-const socket = io(apilink, {
+const socket = io("ws://103.112.62.216:3028", {
     transports: ['websocket', 'polling'],
   });
 socket.connect()
@@ -102,7 +102,7 @@ const Qrcodeinfo = ({getQr,qrurl,loading,instatceID}) => {
             {!instancedata?.info&&<div className='flex justify-between'>
                 <div className="ml-4 mt-3">
                     <h2 className="text-lg font-semibold text-gray-700 dark:text-gray-300">Steps-</h2>
-                    <p className="text-gray-500 dark:text-gray-400">1. Click on <b>Setup</b> Button</p>
+                    <p className="text-gray-500 dark:text-gray-400">1. Click on <b>Get QR</b> Button</p>
                     <p className="text-gray-500 dark:text-gray-400">2. Go to Whatsapp in your phone</p>
                     <p className="text-gray-500 dark:text-gray-400">3. Click on Three dot button and find Click on <b>Linked Device</b> </p>
                     <p className="text-gray-500 dark:text-gray-400">4. Click on <b>Link a Device</b> </p>
@@ -123,7 +123,7 @@ const Qrcodeinfo = ({getQr,qrurl,loading,instatceID}) => {
 {/*                   
                     <p className='bg-green-300 border rounded-md p-1 text-center'>{'instatceID'}</p> */}
                     {/* <img src={qrlink} /> */}
-                    <QRCodeSVG value={qrurl} size={200} />
+                    {!isLoading&&<QRCodeSVG value={qrurl} size={200} />}
                     </div>
                 </div>}
                 
