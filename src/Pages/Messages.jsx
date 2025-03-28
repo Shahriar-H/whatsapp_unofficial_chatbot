@@ -7,7 +7,7 @@ import { io } from 'socket.io-client';
 import axios from 'axios';
 import moment from 'moment';
 import Addimage from '../Components/Addimage';
-const socket = io("ws://103.112.62.216:3028");
+const socket = io(apilink);
 
 const ChatComponent = () => {
     const [allNumbers, setallNumbers] = useState([]);

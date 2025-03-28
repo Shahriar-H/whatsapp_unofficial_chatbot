@@ -25,6 +25,7 @@ export default function Home() {
   const [allimages, setallimages] = useState();
   const [selectedImage, setselectedImage] = useState(null);
   const [isVideo, setisVideo] = useState(false);
+  const [sendingInterval, setsendingInterval] = useState(20);
 
   // useEffect(() => {
   //   // getInstance()
@@ -195,7 +196,7 @@ export default function Home() {
     try {
       for (const number of allphonenumbers) {
         await sendMessageOnMultiLavel(number); // Send message
-        await new Promise(resolve => setTimeout(resolve, 3000)); // Wait for 3s
+        await new Promise(resolve => setTimeout(resolve, 1000*sendingInterval)); // Wait for 3s
         sethistory((prev)=>[...prev,{number:number,status:'send',error:"No Error"}])
       }
     } catch (error) {
@@ -233,7 +234,7 @@ export default function Home() {
       {isModalOpen && (
         <div className="fixed z-50 top-0 left-0 w-full h-screen bg-black bg-opacity-60 flex justify-center items-center">
           <div className="bg-white cursor-pointer dark:bg-black p-4 w-1/2 rounded h-3/4 overflow-auto">
-            {history?.length === allphonenumbers?.length && (
+            {(
               <p
                 onClick={() => {
                   setisModalOpen(!isModalOpen);
@@ -302,6 +303,17 @@ export default function Home() {
               value={"multiple"}
             />{" "}
             <span>Multiple</span> <br></br>
+            <div>
+              <select className="p-2 rounded" defaultValue={20} onChange={(v)=>setsendingInterval(v.target.value)}>
+                <option disabled>Time Interval {sendingInterval}</option>
+                <option value={10}>10 sec</option>
+                <option value={20}>20 sec</option>
+                <option value={30}>30 sec</option>
+                <option value={40}>40 sec</option>
+                <option value={50}>50 sec</option>
+                <option value={60}>60 sec</option>
+              </select>
+            </div>
           </div>
 
           <div>

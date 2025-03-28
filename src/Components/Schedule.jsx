@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import PhoneNumberSelector from './Multiplenumber'
-import { apilink, apitoken, useStore } from '../../lib';
+import { apilink, apitoken, Phone_Id, useStore } from '../../lib';
 import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import Addimage from './Addimage';
@@ -34,7 +34,7 @@ export default function Schedule() {
     try {
       setisLoading(true)
       let data = {
-        host:instancedata?.info?.number,
+        host:Phone_Id,
         numbers:JSON.stringify(allphonenumbers),
         send_time:sent_time,
         is_sent:"Waiting",

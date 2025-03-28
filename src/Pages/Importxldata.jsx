@@ -22,6 +22,12 @@ const Importxldata = () => {
   const [fetcingnumber, setfetcingnumber] = useState(false);
   const [grouploading, setgrouploading] = useState(false);
 
+  // if(instancedata?.subscriptionexpired===false){
+  //   return <div className="text-center">
+  //     <p>Your Subscription has Expired {typeof instancedata?.subscriptionexpired}</p>
+  //   </div>
+  // }
+
   if(instancedata?.subscriptionexpired===false){
     return <div className="text-center">
       <p>Your Subscription has Expired</p>
@@ -209,22 +215,24 @@ const importtoDb = async ()=>{
   }
   await createGroup()
   
-  if(dataArr.length<250){
+  if(dataArr.length<=300){
     await add_numbers(dataArr)
     return 0;
+  }else{
+    alert("Please Upload less than 300 numbers in group to avoid Number Block!")
   }
-  for (let index = 1; index <= Math.ceil(dataArr.length/250); index++) {
-    if(dataArr[index*250]){
-      console.log("Chank:", index);
+  // for (let index = 1; index <= Math.ceil(dataArr.length/250); index++) {
+  //   if(dataArr[index*250]){
+  //     console.log("Chank:", index);
       
-      const datafilter = dataArr.slice((index-1)*250,index*250)
-      await add_numbers(datafilter)
-    }else{
-      const datafilter = dataArr.slice((index-1)*250,dataArr.length)
-      await add_numbers(datafilter)
-    }
+  //     const datafilter = dataArr.slice((index-1)*250,index*250)
+  //     await add_numbers(datafilter)
+  //   }else{
+  //     const datafilter = dataArr.slice((index-1)*250,dataArr.length)
+  //     await add_numbers(datafilter)
+  //   }
 
-  }
+  // }
   
   settextimport('')
   // if(window.confirm("Are sure to import?")){
@@ -232,15 +240,15 @@ const importtoDb = async ()=>{
   // }
   
 }
-if(instancedata?.subscriptionexpired){
-  return <div className="bg-white dark:bg-gray-700 p-8 rounded-lg shadow-lg">
-  <h3 className="text-2xl font-bold text-gray-800 dark:text-gray-300 mb-4">
-    Subscription Expired
-  </h3>
-  <p className="text-red-500">Please renew your subscription. 
-    </p>      
-</div>
-}
+// if(instancedata?.subscriptionexpired){
+//   return <div className="bg-white dark:bg-gray-700 p-8 rounded-lg shadow-lg">
+//   <h3 className="text-2xl font-bold text-gray-800 dark:text-gray-300 mb-4">
+//     Subscription Expired
+//   </h3>
+//   <p className="text-red-500">Please renew your subscription. 
+//     </p>      
+// </div>
+// }
 return (
   <div className="container mx-auto p-4">
     <div className='flex justify-center space-x-2 mb-5'>

@@ -167,9 +167,9 @@ const selectallnumber = () => {
 
   return (
     <div className="container mx-auto  p-4">
-      <h1 className="text-2xl font-bold mb-4" onClick={get_number}>WhatsApp Numbers</h1>
-      <p className='text-red-500'>Must enter number with country code <b>(88 for BD)</b> do not enter <b>+ sign</b></p>
-      <div className="mb-4 bg-white dark:bg-gray-700 rounded-md p-4">
+      {/* <h1 className="text-2xl font-bold mb-4" onClick={get_number}>WhatsApp Numbers</h1> */}
+      {/* <p className='text-red-500'>Must enter number with country code <b>(88 for BD)</b> do not enter <b>+ sign</b></p> */}
+      <div className="mb-4  rounded-md p-4">
         {/* <textarea
           className="w-full p-2 border rounded-md mb-2"
           rows="4"
@@ -177,7 +177,7 @@ const selectallnumber = () => {
           onChange={handleImportNumbers}
         ></textarea> */}
         
-        <div className="flex items-center">
+        {/* <div className="flex items-center">
           <input
             className="w-full lg:w-1/3 p-2 border rounded-md mr-2"
             type="text"
@@ -198,7 +198,7 @@ const selectallnumber = () => {
           >
             {isAdding?"Adding...":'Add'}
           </button>
-        </div>
+        </div> */}
       </div>
 
       <div>

@@ -69,6 +69,7 @@ const PhoneNumberSelector = ({getallphonenumbers}) => {
         getallGroup()
     }, []);
     useEffect(() => {
+        setSelectedNumbers([])
         get_number({group:selectedGroup})
         
     }, [selectedGroup]);

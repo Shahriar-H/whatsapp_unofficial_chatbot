@@ -12,7 +12,7 @@ import { faPowerOff, faRefresh } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import useGetData from '../hooks/useGetdata';
 
-const socket = io("ws://103.112.62.216:3028", {
+const socket = io(apilink,{
   transports: ['websocket', 'polling'],
 });
 socket.connect()
@@ -276,7 +276,7 @@ export default function Dashboard() {
             <DashboardCard title="Expires at" value="2024-08-22 12:16:04 UTC" isPrimary={true} /> */}
           </div>
             
-          {<div className="mt-8">
+          {<div className="mt-8 hidden">
            { !isLoading&&<Qrcodeinfo loading={isLoading} getQr={getQr} qrurl={qrurl} instatceID={instatceID}/>}
             
           </div>}

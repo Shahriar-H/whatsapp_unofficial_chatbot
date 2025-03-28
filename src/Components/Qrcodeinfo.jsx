@@ -10,7 +10,7 @@ import { apilink, apitoken, useStore } from '../../lib';
 import { io } from "socket.io-client";
 import { info } from 'autoprefixer';
 import toast from 'react-hot-toast';
-const socket = io("ws://103.112.62.216:3028", {
+const socket = io(apilink, {
     transports: ['websocket', 'polling'],
   });
 socket.connect()
